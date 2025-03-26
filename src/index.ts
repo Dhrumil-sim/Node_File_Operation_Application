@@ -1,13 +1,7 @@
-import  express from "express";
+import express from 'express';
 
 const app = express();
 
-app.listen(3000,()=>{
-    console.log("Hello World")
-    console.log("dsdsf")
-    
-   
-   
-    
-    
+app.listen(3000, () => {
+  console.log('Hello World');
 });

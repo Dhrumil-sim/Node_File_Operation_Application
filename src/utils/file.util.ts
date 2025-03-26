@@ -12,7 +12,9 @@ export const deleteFile = (fileName: string): void => {
   const filePath = path.join(__dirname, '../../public/uploads', fileName);
   console.log(filePath);
   if (fs.existsSync(filePath)) {
-    fs.unlinkSync(fileName);
+    fs.unlinkSync(filePath);
+  } else {
+    console.log('file is not exist');
   }
 };
 

@@ -22,20 +22,30 @@ export const appendToFile = (fileName: string, data: string): void => {
 
 export const streamFile = (fileName: string, res: Response): void => {
   const filePath = path.join(__dirname, '../../public/uploads', fileName);
-  const stream = fs.createReadStream(filePath);
 
-  // Set appropriate headers for streaming
-  res.setHeader('Content-Type', 'application/octet-stream');
-  res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+  // Check if the file exists
+  fs.stat(filePath, (err, stats) => {
+    if (err || !stats.isFile()) {
+      res.status(404).send('File not found');
+      return;
+    }
 
-  // Handle stream errors
-  stream.on('error', (err) => {
-    console.error('Error reading the file:', err);
-    res.status(500).send('Server Error');
+    // Set appropriate headers for displaying text content
+    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Disposition', 'inline; filename="' + fileName + '"');
+
+    // Create a readable stream from the file
+    const stream = fs.createReadStream(filePath);
+
+    // Handle stream errors
+    stream.on('error', (err) => {
+      console.error('Error reading the file:', err);
+      res.status(500).send('Server Error');
+    });
+
+    // Pipe the file stream to the response
+    stream.pipe(res);
   });
-
-  // Pipe the file stream to the response
-  stream.pipe(res);
 };
 module.exports = {
   ensureUploadDirectory,

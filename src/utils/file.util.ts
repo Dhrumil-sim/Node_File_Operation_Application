@@ -35,6 +35,13 @@ export const streamFile = (fileName: string, res: Response): void => {
     res.setHeader('Content-Disposition', 'inline; filename="' + fileName + '"');
 
     // Create a readable stream from the file
+    const stream = fs.createReadStream(filePath);
+
+    // Handle stream errors
+    stream.on('error', (err) => {
+      console.error('Error reading the file:', err);
+      res.status(500).send('Server Error');
+    });
 
     // Pipe the file stream to the response
     stream.pipe(res);

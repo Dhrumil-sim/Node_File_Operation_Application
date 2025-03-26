@@ -9,14 +9,15 @@ export const ensureUploadDirectory = (): void => {
 };
 
 export const deleteFile = (fileName: string): void => {
-  const filePath = path.join(__dirname, '../public/uploads', fileName);
+  const filePath = path.join(__dirname, '../../public/uploads', fileName);
+  console.log(filePath);
   if (fs.existsSync(filePath)) {
     fs.unlinkSync(fileName);
   }
 };
 
 export const appendToFile = (fileName: string, data: string): void => {
-  const filePath = path.join(__dirname, '../public/uploads', fileName);
+  const filePath = path.join(__dirname, '../../public/uploads', fileName);
   fs.appendFileSync(filePath, data);
 };
 
@@ -47,9 +48,10 @@ export const streamFile = (fileName: string, res: Response): void => {
     stream.pipe(res);
   });
 };
-module.exports = {
-  ensureUploadDirectory,
-  deleteFile,
-  appendToFile,
-  streamFile,
+
+export const createOrUpdateFile = (fileName: string, content: string): void => {
+  const filePath = path.join(__dirname, '../../public/uploads', fileName);
+
+  // Create or update the file with the given content
+  fs.writeFileSync(filePath, content, 'utf-8');
 };

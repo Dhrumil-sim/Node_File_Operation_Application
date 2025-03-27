@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Response } from 'express';
 export const ensureUploadDirectory = (): void => {
-  const dir = path.join(__dirname, '../../public/uploads');
+  const dir = path.join(__dirname, '../../public/uploads.js');
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }

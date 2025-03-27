@@ -1,5 +1,5 @@
 import express, { Application } from 'express';
-import fileRoutes from './routes/file.routes.js';
+import fileRoutes from './routes/file.routes';
 import path from 'path';
 class App {
   public app: Application;

@@ -7,8 +7,8 @@ import {
   appendDataToFile,
   createOrUpdateFileContent,
   editFileContent,
-} from '../controllers/file.controller.js'; // Ensure the correct import path
-import upload from '../configurations/multer.configuration.js';
+} from '../controllers/file.controller'; // Ensure the correct import path
+import upload from '../configurations/multer.configuration';
 
 const router: Router = Router();
 
